@@ -3,6 +3,8 @@ import {useNavigate} from "react-router-dom";
 import {useContext, useEffect, useRef, useState} from "react";
 import {AppContext} from "../context/AppContext.jsx";
 import {toast} from "react-toastify";
+import axios from "axios";
+
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -11,7 +13,7 @@ const Navbar = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
         try{
             axios.defaults.withCredentials = true;
             const response =  axios.post(backendURL + '/logout')
@@ -85,7 +87,8 @@ const Navbar = () => {
                             )}
 
                             <div className={"dropdown-item py-1 px-2  text-danger"} style={{cursor: "pointer"}}
-                                 onClick={() => handleLogout}>
+                                 onClick={handleLogout}
+                            >
                                 Logout
                             </div>
 
