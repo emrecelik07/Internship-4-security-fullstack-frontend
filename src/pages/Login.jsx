@@ -11,8 +11,11 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
-    const {backendURL} = useContext(AppContext);
+    const {backendURL, setIsLoggedIn, getUserData} = useContext(AppContext);
     const navigate = useNavigate();
+
+    const [isCreateAccount, setIsCreateAccount] = useState(false);
+
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
@@ -30,8 +33,15 @@ const Login = () => {
                 }
 
             }else{
-                //login api
+                const response = await axios.post(`${backendURL}/login`, {email, password})
 
+                if (response.status === 200){
+                    setIsLoggedIn(true)
+                    getUserData();
+                    navigate("/")
+                }else {
+                    toast.error("Wrong email or password");
+                }
             }
         }catch(err){
             toast.error(err?.response?.data?.message || "Something went wrong");
@@ -39,7 +49,6 @@ const Login = () => {
         setLoading(false);}
     }
 
-    const [isCreateAccount, setIsCreateAccount] = useState(true);
 
 
     return (
