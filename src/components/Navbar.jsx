@@ -14,19 +14,20 @@ const Navbar = () => {
     const dropdownRef = useRef(null);
 
     const handleLogout = async () => {
-        try{
+        try {
             axios.defaults.withCredentials = true;
-            const response =  axios.post(backendURL + '/logout')
+            const response = await axios.post(backendURL + '/logout');
 
-            if(response === 200){
-                setIsLoggedIn(false)
-                setUserData(false)
-                navigate('/')
+            if (response.status === 200) {
+                setIsLoggedIn(false);
+                setUserData(null);
+                navigate('/');
             }
-        }catch(error){
-            toast.error(error.response.data.message)
+        } catch (error) {
+            toast.error(error.response?.data?.message || "Logout failed");
         }
-    }
+    };
+
 
     useEffect(() => {
         const handleClickOutside = (event) => {
