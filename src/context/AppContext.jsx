@@ -2,6 +2,7 @@ import {createContext, useState} from "react";
 import {AppConstants} from "../util/constants.js";
 import axios from "axios";
 import {toast} from "react-toastify";
+import { useEffect } from "react";
 
 export const AppContext = createContext()
 
@@ -23,6 +24,11 @@ export const AppContextProvider = (props) => {
             toast.error(err?.response?.data?.message || "Fetch failed");
         }
     };
+
+    useEffect(() => {
+        axios.defaults.withCredentials = true; // to send cookies
+        getUserData();
+    }, [])
 
 
     const contextValue = {

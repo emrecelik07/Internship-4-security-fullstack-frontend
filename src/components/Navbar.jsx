@@ -13,6 +13,7 @@ const Navbar = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
 
+
     const handleLogout = async () => {
         try {
             axios.defaults.withCredentials = true;
@@ -27,6 +28,23 @@ const Navbar = () => {
             toast.error(error.response?.data?.message || "Logout failed");
         }
     };
+
+    const sendVerificationOtp = async () => {
+        try{
+            axios.defaults.withCredentials = true;
+            const response = await axios.post(backendURL + '/send-otp');
+
+            if (response.status === 200) {
+                navigate('/email-verify');
+                toast.success("Verification code has been sent!");
+            }else{
+                toast.error("Verification could not been sent!");
+            }
+        }catch(error){
+            toast.error(error?.response?.data?.message || "Something went wrong.");
+
+        }
+    }
 
 
     useEffect(() => {
@@ -81,8 +99,8 @@ const Navbar = () => {
 
                         }}>
 
-                            {!userData.isAccountVerified && (
-                                <div className={"dropdown-item py-1 px-2"} style={{cursor: "pointer"}}>
+                            {!userData.isVerified && (
+                                <div className={"dropdown-item py-1 px-2"} style={{cursor: "pointer"}} onClick={sendVerificationOtp}>
                                     Verify Your Account
                                 </div>
                             )}
