@@ -17,16 +17,17 @@ export const AppContextProvider = (props) => {
             const response = await axios.get(`${backendURL}/profile`);
             if (response.status === 200) {
                 setUserData(response.data);
+                setIsLoggedIn(true);
             } else {
                 toast.error("Unable to get user data");
             }
         } catch (err) {
-            toast.error(err?.response?.data?.message || "Fetch failed");
+            console.log(err)
         }
     };
 
     useEffect(() => {
-        axios.defaults.withCredentials = true; // to send cookies
+        axios.defaults.withCredentials = true;
         getUserData();
     }, [])
 
@@ -36,6 +37,7 @@ export const AppContextProvider = (props) => {
         isLoggedIn, setIsLoggedIn,
         userData, setUserData,
         getUserData,
+
 
     }
     return (

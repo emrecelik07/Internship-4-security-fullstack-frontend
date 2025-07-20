@@ -81,7 +81,7 @@ const Login = () => {
                     }}
                 >
                     <img src={assets.logo} alt="logo" height={32} width={32} />
-                    <span className="fw-bold fs-4 text-light">Autify</span>
+                    <span className="fw-bold fs-4 text-light">Lorem Ipsum</span>
                 </Link>
             </div>
 
@@ -140,9 +140,12 @@ const Login = () => {
                         />
                     </div>
 
-                    <div className="mb-3 d-flex justify-content-between">
-                        <Link to="/reset-password" className={"text-decoration-none"}>Forgot your password?</Link>
-                    </div>
+                    {!isCreateAccount && (
+                        <div className="mb-3 d-flex justify-content-between">
+                            <Link to="/reset-password" className={"text-decoration-none"}>Forgot your password?</Link>
+                        </div>
+                    )}
+
 
                     {/*submit button*/}
 

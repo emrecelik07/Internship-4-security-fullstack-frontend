@@ -70,7 +70,7 @@ const Navbar = () => {
             <div className="d-flex align-items-center gap-2">
 
                 <img src={assets.logo} alt="logo" width={32} height={32} />
-                <span className={"fw-bold fs-4 text-dark"}>Autify</span>
+                <span className={"fw-bold fs-4 text-dark"}>Lorem Ipsum</span>
             </div>
 
             {userData ? (

@@ -1,6 +1,6 @@
 import {Link, useNavigate} from "react-router-dom";
 import {assets} from "../assets/assets.js";
-import { useRef, useState, useContext } from "react";
+import {useRef, useState, useContext, useEffect} from "react";
 import {AppContext} from "../context/AppContext.jsx";
 import {toast} from "react-toastify";
 import axios from "axios";
@@ -12,6 +12,10 @@ const EmailVerify = () => {
     const [loading, setLoading] = useState(false);
     const {getUserData, isLoggedIn, userData, backendURL} = useContext(AppContext);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        isLoggedIn && userData && userData.isVerified && navigate('/');
+    }, [isLoggedIn, userData]);
 
     const handleInputChange = (e, i) => {
         const value = e.target.value;
@@ -71,13 +75,14 @@ const EmailVerify = () => {
         }
     }
 
+
     return (
         <div className={"email-verify-container d-flex justify-content-center align-items-center vh-100 position-relative"}
         style={{background: "linear-gradient(90deg, #6a5af9", borderRadius:"none"}}
         >
             <Link to="/" className={"position-absolute top-0 start-0 p-4 d-flex align-items-center gap-2 text-decoration-none"}>
                 <img src={assets.logo} alt="logo" height={32} width="32"/>
-                <span className="fs-4 fw-semibold text-light">Autify</span>
+                <span className="fs-4 fw-semibold text-light">Lorem Ipsum</span>
             </Link>
 
             <div className="p-5 rounded-4 shadow bg-white" style={{maxWidth:"500px"}}>
